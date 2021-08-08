@@ -16,6 +16,7 @@ const NamedWithInterpolation = styled.div`
 
 const Wrapped = styled(Inner)`
   color: red;
+  @apply m-0 p-0 w-100vw h-100vh overflow-hidden;
 `
 
 const Foo = styled.div({
