@@ -28,12 +28,15 @@ import syntax from 'babel-plugin-syntax-jsx'
 import templateLiterals from './visitors/templateLiterals'
 import assignStyledRequired from './visitors/assignStyledRequired'
 import transpileCssProp from './visitors/transpileCssProp'
+import { getWindiCSSService } from './utils/windicss'
 
 export default function ({ types: t }) {
   return {
     inherits: syntax,
     visitor: {
       Program(path, state) {
+        // init on entry
+        getWindiCSSService(state.opts)
         path.traverse(
           {
             JSXAttribute(path, state) {

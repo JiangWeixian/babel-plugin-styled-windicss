@@ -1,8 +1,9 @@
 import { isStyled, isHelper } from '../../utils/detectors'
-import { utils } from './windicss'
+import { getWindiCSSService } from '../../utils/windicss'
 import { transformGroups } from '@windicss/plugin-utils'
 
 export default (t) => (path, state) => {
+  const utils = getWindiCSSService(state.opts)
   if (isStyled(t)(path.node.tag, state) || isHelper(t)(path.node.tag, state)) {
     const {
       tag: callee,
