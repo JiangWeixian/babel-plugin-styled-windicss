@@ -25,8 +25,6 @@ export default t => (path, state) => {
         })
     )
 
-    // console.log(callee)
-
     path.replaceWith(t.callExpression(callee, [values, ...expressions]))
   }
 }

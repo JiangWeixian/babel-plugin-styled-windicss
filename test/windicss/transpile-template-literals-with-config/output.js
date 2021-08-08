@@ -8,23 +8,15 @@ function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "functio
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-var Named = _styledComponents["default"].div.withConfig({
-  displayName: "code__Named"
-})(["\n  width: 100%;\n  &:hover {\n    width: 50%;\n  }\n"]);
+var Named = _styledComponents["default"].div(["\n  width: 100%;\n  &:hover {\n    width: 50%;\n  }\n"]);
 
-var NamedWithInterpolation = _styledComponents["default"].div.withConfig({
-  displayName: "code__NamedWithInterpolation"
-})(["\n  color: ", "&:hover {\n  --tw-bg-opacity: 1;\n  background-color: rgba(59, 130, 246, var(--tw-bg-opacity));\n  font-size: 0.75rem;\n  line-height: 1rem;\n}\n& {\n  height: 100vh;\n  margin: 0px;\n  overflow: hidden;\n  padding: 0px;\n  width: 100vw;\n}"], function (color) {
+var NamedWithInterpolation = _styledComponents["default"].div(["\n  color: ", "&:hover {\n  --tw-bg-opacity: 1;\n  background-color: rgba(59, 130, 246, var(--tw-bg-opacity));\n  font-size: 0.75rem;\n  line-height: 1rem;\n}\n& {\n  height: 100vh;\n  margin: 0px;\n  overflow: hidden;\n  padding: 0px;\n  width: 100vw;\n}"], function (color) {
   return props.color;
 });
 
-var Wrapped = (0, _styledComponents["default"])(Inner).withConfig({
-  displayName: "code__Wrapped"
-})(["\n  color: red;\n"]);
+var Wrapped = (0, _styledComponents["default"])(Inner)(["\n  color: red;\n"]);
 
-var Foo = _styledComponents["default"].div.withConfig({
-  displayName: "code__Foo"
-})({
+var Foo = _styledComponents["default"].div({
   color: 'green'
 });
 
