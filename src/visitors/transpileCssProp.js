@@ -12,24 +12,21 @@ const getName = (node, t) => {
     return `${getName(node.object, t)}.${node.property.name}`
   }
   throw path.buildCodeFrameError(
-    `Cannot infer name from node with type "${node.type}". Please submit an issue at github.com/styled-components/babel-plugin-styled-components with your code so we can take a look at your use case!`
+    `Cannot infer name from node with type "${node.type}". Please submit an issue at github.com/styled-components/babel-plugin-styled-components with your code so we can take a look at your use case!`,
   )
 }
 
 const getNameExpression = (node, t) => {
   if (typeof node.name === 'string') return t.identifier(node.name)
   if (t.isJSXMemberExpression(node)) {
-    return t.memberExpression(
-      getNameExpression(node.object, t),
-      t.identifier(node.property.name)
-    )
+    return t.memberExpression(getNameExpression(node.object, t), t.identifier(node.property.name))
   }
   throw path.buildCodeFrameError(
-    `Cannot infer name expression from node with type "${node.type}". Please submit an issue at github.com/styled-components/babel-plugin-styled-components with your code so we can take a look at your use case!`
+    `Cannot infer name expression from node with type "${node.type}". Please submit an issue at github.com/styled-components/babel-plugin-styled-components with your code so we can take a look at your use case!`,
   )
 }
 
-const getLocalIdentifier = path => {
+const getLocalIdentifier = (path) => {
   const identifier = path.scope.generateUidIdentifier('css')
 
   // make it transient
@@ -38,7 +35,7 @@ const getLocalIdentifier = path => {
   return identifier
 }
 
-export default t => (path, state) => {
+export default (t) => (path, state) => {
   if (!useCssProp(state)) return
   if (path.node.name.name !== 'css') return
 
@@ -56,9 +53,7 @@ export default t => (path, state) => {
       nameHint: 'styled',
     })
 
-    importName = t.identifier(
-      importLocalName('default', state, { bypassCache: true })
-    )
+    importName = t.identifier(importLocalName('default', state, { bypassCache: true }))
   }
 
   if (!t.isIdentifier(importName)) importName = t.identifier(importName)
@@ -67,7 +62,7 @@ export default t => (path, state) => {
   const name = getName(elem.node.name, t)
   const nameExpression = getNameExpression(elem.node.name, t)
   const id = path.scope.generateUidIdentifier(
-    'Styled' + name.replace(/^([a-z])/, (match, p1) => p1.toUpperCase())
+    `Styled${name.replace(/^([a-z])/, (match, p1) => p1.toUpperCase())}`,
   )
 
   let styled
@@ -79,7 +74,7 @@ export default t => (path, state) => {
     styled = t.callExpression(importName, [nameExpression])
 
     if (bindings[name] && !t.isImportDeclaration(bindings[name].path.parent)) {
-      injector = nodeToInsert =>
+      injector = (nodeToInsert) =>
         (t.isVariableDeclaration(bindings[name].path.parent)
           ? bindings[name].path.parentPath
           : bindings[name].path
@@ -91,13 +86,8 @@ export default t => (path, state) => {
 
   if (t.isStringLiteral(path.node.value)) {
     css = t.templateLiteral(
-      [
-        t.templateElement(
-          { raw: path.node.value.value, cooked: path.node.value.value },
-          true
-        ),
-      ],
-      []
+      [t.templateElement({ raw: path.node.value.value, cooked: path.node.value.value }, true)],
+      [],
     )
   } else if (t.isJSXExpressionContainer(path.node.value)) {
     if (t.isTemplateLiteral(path.node.value.expression)) {
@@ -115,14 +105,14 @@ export default t => (path, state) => {
           t.templateElement({ raw: '', cooked: '' }, false),
           t.templateElement({ raw: '', cooked: '' }, true),
         ],
-        [path.node.value.expression]
+        [path.node.value.expression],
       )
     }
   }
 
   if (!css) return
 
-  elem.node.attributes = elem.node.attributes.filter(attr => attr !== path.node)
+  elem.node.attributes = elem.node.attributes.filter((attr) => attr !== path.node)
   elem.node.name = t.jSXIdentifier(id.name)
 
   if (elem.parentPath.node.closingElement) {
@@ -139,10 +129,7 @@ export default t => (path, state) => {
     const p = t.identifier('p')
     let replaceObjectWithPropFunction = false
 
-    css.properties = css.properties.reduce(function propertiesReducer(
-      acc,
-      property
-    ) {
+    css.properties = css.properties.reduce(function propertiesReducer(acc, property) {
       /**
        * handle potential object key interpolations
        */
@@ -153,19 +140,14 @@ export default t => (path, state) => {
         (t.isIdentifier(property.key) &&
           path.scope.hasBinding(property.key.name) &&
           // but not a object reference shorthand like css={{ color }}
-          (t.isIdentifier(property.value)
-            ? property.key.name !== property.value.name
-            : true))
+          (t.isIdentifier(property.value) ? property.key.name !== property.value.name : true))
       ) {
         replaceObjectWithPropFunction = true
 
         const identifier = getLocalIdentifier(path)
 
         elem.node.attributes.push(
-          t.jSXAttribute(
-            t.jSXIdentifier(identifier.name),
-            t.jSXExpressionContainer(property.key)
-          )
+          t.jSXAttribute(t.jSXIdentifier(identifier.name), t.jSXExpressionContainer(property.key)),
         )
 
         property.key = t.memberExpression(p, identifier)
@@ -173,20 +155,14 @@ export default t => (path, state) => {
 
       if (t.isObjectExpression(property.value)) {
         // recurse for objects within objects (e.g. {'::before': { content: x }})
-        property.value.properties = property.value.properties.reduce(
-          propertiesReducer,
-          []
-        )
+        property.value.properties = property.value.properties.reduce(propertiesReducer, [])
 
         acc.push(property)
       } else if (t.isSpreadElement(property)) {
         // handle spread variables and such
 
         if (t.isObjectExpression(property.argument)) {
-          property.argument.properties = property.argument.properties.reduce(
-            propertiesReducer,
-            []
-          )
+          property.argument.properties = property.argument.properties.reduce(propertiesReducer, [])
         } else {
           replaceObjectWithPropFunction = true
 
@@ -195,8 +171,8 @@ export default t => (path, state) => {
           elem.node.attributes.push(
             t.jSXAttribute(
               t.jSXIdentifier(identifier.name),
-              t.jSXExpressionContainer(property.argument)
-            )
+              t.jSXExpressionContainer(property.argument),
+            ),
           )
 
           property.argument = t.memberExpression(p, identifier)
@@ -213,7 +189,7 @@ export default t => (path, state) => {
           t.isStringLiteral,
         ]
           .filter(Boolean) // older versions of babel might not have bigint support baked in
-          .every(x => !x(property.value))
+          .every((x) => !x(property.value))
       ) {
         replaceObjectWithPropFunction = true
 
@@ -222,21 +198,18 @@ export default t => (path, state) => {
         elem.node.attributes.push(
           t.jSXAttribute(
             t.jSXIdentifier(identifier.name),
-            t.jSXExpressionContainer(property.value)
-          )
+            t.jSXExpressionContainer(property.value),
+          ),
         )
 
-        acc.push(
-          t.objectProperty(property.key, t.memberExpression(p, identifier))
-        )
+        acc.push(t.objectProperty(property.key, t.memberExpression(p, identifier)))
       } else {
         // some sort of primitive which is safe to pass through as-is
         acc.push(property)
       }
 
       return acc
-    },
-    [])
+    }, [])
 
     if (replaceObjectWithPropFunction) {
       css = t.arrowFunctionExpression([p], css)
@@ -245,8 +218,8 @@ export default t => (path, state) => {
     // tagged template literal
     css.expressions = css.expressions.reduce((acc, ex) => {
       if (
-        Object.keys(bindings).some(key =>
-          bindings[key].referencePaths.find(p => p.node === ex)
+        Object.keys(bindings).some((key) =>
+          bindings[key].referencePaths.find((p) => p.node === ex),
         ) ||
         t.isFunctionExpression(ex) ||
         t.isArrowFunctionExpression(ex)
@@ -257,15 +230,10 @@ export default t => (path, state) => {
         const p = t.identifier('p')
 
         elem.node.attributes.push(
-          t.jSXAttribute(
-            t.jSXIdentifier(identifier.name),
-            t.jSXExpressionContainer(ex)
-          )
+          t.jSXAttribute(t.jSXIdentifier(identifier.name), t.jSXExpressionContainer(ex)),
         )
 
-        acc.push(
-          t.arrowFunctionExpression([p], t.memberExpression(p, identifier))
-        )
+        acc.push(t.arrowFunctionExpression([p], t.memberExpression(p, identifier)))
       }
 
       return acc
@@ -279,7 +247,7 @@ export default t => (path, state) => {
       parent = parent.parentPath
     }
 
-    injector = nodeToInsert => parent.pushContainer('body', nodeToInsert)
+    injector = (nodeToInsert) => parent.pushContainer('body', nodeToInsert)
   }
 
   injector(
@@ -288,8 +256,8 @@ export default t => (path, state) => {
         id,
         t.isObjectExpression(css) || t.isArrowFunctionExpression(css)
           ? t.callExpression(styled, [css])
-          : t.taggedTemplateExpression(styled, css)
+          : t.taggedTemplateExpression(styled, css),
       ),
-    ])
+    ]),
   )
 }

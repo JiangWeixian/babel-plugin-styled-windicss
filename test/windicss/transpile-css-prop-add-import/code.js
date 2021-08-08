@@ -12,9 +12,7 @@ export default () => (
     <Card>
       <h1>Login or Sign Up</h1>
       <p>
-        <a href={config.API_URI + '/auth/google'}>
-          Sign up or login with Google
-        </a>
+        <a href={`${config.API_URI}/auth/google`}>Sign up or login with Google</a>
       </p>
     </Card>
   </div>

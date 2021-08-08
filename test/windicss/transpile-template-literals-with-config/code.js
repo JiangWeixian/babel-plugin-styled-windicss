@@ -8,7 +8,7 @@ const Named = styled.div`
 `
 
 const NamedWithInterpolation = styled.div`
-  color: ${color => props.color};
+  color: ${(color) => props.color};
   & {
     @apply m-0 p-0 w-100vw h-100vh overflow-hidden hover:(bg-blue-500 text-xs);
   }

@@ -1,6 +1,6 @@
 import { isValidTopLevelImport } from '../utils/detectors'
 
-export default t => (path, state) => {
+export default (t) => (path, state) => {
   if (
     t.isCallExpression(path.node.init) &&
     t.isIdentifier(path.node.init.callee) &&

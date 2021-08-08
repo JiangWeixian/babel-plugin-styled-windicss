@@ -29,7 +29,7 @@ import templateLiterals from './visitors/templateLiterals'
 import assignStyledRequired from './visitors/assignStyledRequired'
 import transpileCssProp from './visitors/transpileCssProp'
 
-export default function({ types: t }) {
+export default function ({ types: t }) {
   return {
     inherits: syntax,
     visitor: {
@@ -43,7 +43,7 @@ export default function({ types: t }) {
               assignStyledRequired(t)(path, state)
             },
           },
-          state
+          state,
         )
       },
       TaggedTemplateExpression(path, state) {
