@@ -6,4 +6,4 @@ expect.extend({ toMatchFile })
 
 const { fixtures } = create({ babelrc: true })
 
-fixtures('babel-plugin-styled-components', path.join(__dirname, 'fixtures'))
+fixtures('babel-plugin-styled-components', path.join(__dirname, 'windicss'))

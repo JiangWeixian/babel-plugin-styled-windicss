@@ -10,11 +10,11 @@ function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && 
 
 var Named = _styledComponents["default"].div.withConfig({
   displayName: "code__Named"
-})(["\n  width: 100%;\n"]);
+})(["\n  width: 100%;\n  &:hover {\n    width: 50%;\n  }\n"]);
 
 var NamedWithInterpolation = _styledComponents["default"].div.withConfig({
   displayName: "code__NamedWithInterpolation"
-})(["\n  color: ", ";\n"], function (color) {
+})(["\n  color: ", "&:hover {\n  --tw-bg-opacity: 1;\n  background-color: rgba(59, 130, 246, var(--tw-bg-opacity));\n  font-size: 0.75rem;\n  line-height: 1rem;\n}\n& {\n  height: 100vh;\n  margin: 0px;\n  overflow: hidden;\n  padding: 0px;\n  width: 100vw;\n}"], function (color) {
   return props.color;
 });
 

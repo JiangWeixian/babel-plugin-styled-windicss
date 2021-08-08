@@ -10,28 +10,28 @@ export default function({ types: t }) {
   return {
     inherits: syntax,
     visitor: {
-      Program(path, state) {
-        path.traverse(
-          {
-            JSXAttribute(path, state) {
-              transpileCssProp(t)(path, state)
-            },
-            VariableDeclarator(path, state) {
-              assignStyledRequired(t)(path, state)
-            },
-          },
-          state
-        )
-      },
-      CallExpression(path, state) {
-        displayNameAndId(t)(path, state)
-        pureAnnotation(t)(path, state)
-      },
+      // Program(path, state) {
+      //   path.traverse(
+      //     {
+      //       JSXAttribute(path, state) {
+      //         transpileCssProp(t)(path, state)
+      //       },
+      //       VariableDeclarator(path, state) {
+      //         assignStyledRequired(t)(path, state)
+      //       },
+      //     },
+      //     state
+      //   )
+      // },
+      // CallExpression(path, state) {
+      //   displayNameAndId(t)(path, state)
+      //   pureAnnotation(t)(path, state)
+      // },
       TaggedTemplateExpression(path, state) {
-        minify(t)(path, state)
-        displayNameAndId(t)(path, state)
+        // minify(t)(path, state)
+        // displayNameAndId(t)(path, state)
         templateLiterals(t)(path, state)
-        pureAnnotation(t)(path, state)
+        // pureAnnotation(t)(path, state)
       },
     },
   }
