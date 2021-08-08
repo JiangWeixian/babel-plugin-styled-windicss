@@ -1,8 +1,10 @@
-import { createUtils } from '@windicss/plugin-utils'
+import { createUtils, transformGroups as _transformGroups } from '@windicss/plugin-utils'
+import { CSSParser } from 'windicss/utils/parser'
+import Windicss from 'windicss'
 
 let utils
 
-export const getWindiCSSService = (options) => {
+export const getWindiCSSService = async (options) => {
   if (utils) {
     return utils
   }
@@ -15,6 +17,17 @@ export const getWindiCSSService = (options) => {
       },
     },
   )
-  utils.ensureInit()
+  await utils.init()
   return utils
+}
+
+const processor = new Windicss()
+
+export const parse = (content) => {
+  const parser = new CSSParser(content, processor)
+  return parser.parse().build()
+}
+
+export const transformGroups = (content) => {
+  return _transformGroups(content)
 }

@@ -1,9 +1,7 @@
 import { isStyled, isHelper } from '../../utils/detectors'
-import { getWindiCSSService } from '../../utils/windicss'
-import { transformGroups } from '@windicss/plugin-utils'
+import { parse, transformGroups } from '../../utils/windicss'
 
 export default (t) => (path, state) => {
-  const utils = getWindiCSSService(state.opts)
   if (isStyled(t)(path.node.tag, state) || isHelper(t)(path.node.tag, state)) {
     const {
       tag: callee,
@@ -15,7 +13,7 @@ export default (t) => (path, state) => {
         .filter((quasi) => quasi.value.cooked !== undefined)
         .map((quasi) => {
           if (/@apply/g.test(quasi.value.cooked)) {
-            const result = utils.transformCSS(quasi.value.cooked, './index.js')
+            const result = parse(quasi.value.cooked)
             const translated = transformGroups(result)
             if (translated) {
               return t.stringLiteral(translated.code)
