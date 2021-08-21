@@ -48,8 +48,6 @@ const Wrapped = styled(Inner)`
 
 **compile windicss `group`**
 
-- **limitations**
-
 ```tsx
 // input
 const Wrapped = styled(Inner)`
@@ -61,7 +59,7 @@ const Wrapped = styled(Inner)`
   &:hover {
     -tw-bg-opacity: 1;
     background-color: rgba(59, 130, 246, var(--tw-bg-opacity));
-    font-size: 0.75rem;\
+    font-size: 0.75rem;
     line-height: 1rem;
   }
   & {
