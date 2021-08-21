@@ -1,5 +1,6 @@
 import { isStyled, isHelper } from '../../utils/detectors'
-import { parse, transformGroups } from '../../utils/windicss'
+import { parse } from '../../utils/windicss'
+import { log } from '../log'
 
 export default (t) => (path, state) => {
   if (isStyled(t)(path.node.tag, state) || isHelper(t)(path.node.tag, state)) {
@@ -12,13 +13,17 @@ export default (t) => (path, state) => {
       quasis
         .filter((quasi) => quasi.value.cooked !== undefined)
         .map((quasi) => {
+          log.template.input(quasi.value.cooked)
           if (/@apply/g.test(quasi.value.cooked)) {
-            const result = parse(quasi.value.cooked)
-            const translated = transformGroups(result)
-            if (translated) {
-              return t.stringLiteral(translated.code)
-            }
-            return t.stringLiteral(result)
+            const next = quasi.value.cooked.replace(
+              /(.*)@apply([^`${}]*)\n/gm,
+              (_match, pre, applyCss) => {
+                const parsed = parse(`&{@apply ${applyCss}}`)
+                return `${pre} ${parsed}`
+              },
+            )
+            log.template.output(next)
+            return t.stringLiteral(next)
           }
           return t.stringLiteral(quasi.value.cooked)
         }),

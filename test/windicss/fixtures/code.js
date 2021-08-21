@@ -99,17 +99,19 @@ const StyledDatePicker = styled.div`
 const StyleDay = styled.div`
   @apply text-center cursor-pointer flex items-center justify-center;
   span {
-    @apply m-0 w-7 inline-block box-border rounded leading-loose bg-light-900;
+    @apply m-0 w-7 inline-block box-border rounded leading-loose;
 
     aspect-ratio: 1 / 1;
     line-height: 28px;
     color: ${(props) =>
       props.selected ? 'var(--primary-text-color)' : 'var(--text-color-0)'};
     background-color: ${(props) => (props.selected ? 'var(--primary)' : undefined)};
+    box-shadow: ${(props) => (props.selected ? shadow.lg : undefined)};
   }
   &.date-picker-day {
     span {
       &:hover {
+        border: ${shadow.primary};
         background-color: var(--primary);
         color: var(--primary-text-color);
       }
@@ -117,20 +119,6 @@ const StyleDay = styled.div`
   }
 `
 
-
 const Group = styled.div`
   @apply m-0 p-0 w-100vw h-100vh overflow-hidden hover:(bg-blue-500 text-xs);
 `
-
-export default function IndexPage() {
-  return (
-    <div>
-      <StyleDay>
-        <span>
-          1
-        </span>
-      </StyleDay>
-      <Group />
-    </div>
-  );
-}
