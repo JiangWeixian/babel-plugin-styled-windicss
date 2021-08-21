@@ -25,6 +25,9 @@ Then add it to your babel configuration:
 ```
 ## usage
 
+> **💡 NOTE**  
+see more example [here](./example/src/pages/index.tsx)
+
 **compile tailwindcss `@apply`**
 
 ```tsx
@@ -45,17 +48,12 @@ const Wrapped = styled(Inner)`
 
 **compile windicss `group`**
 
-> **⚠️ WARNING**  
-`@apply` should wrapped in `${ }` to support windicss `group`
-
 - **limitations**
 
 ```tsx
 // input
 const Wrapped = styled(Inner)`
-  & {
-    @apply m-0 p-0 w-100vw h-100vh overflow-hidden hover:(bg-blue-500 text-xs);
-  }
+  @apply m-0 p-0 w-100vw h-100vh overflow-hidden hover:(bg-blue-500 text-xs);
 `
 
 const Wrapped = styled(Inner)`
