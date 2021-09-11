@@ -30,6 +30,8 @@
     "lint:fix": "eslint . --fix",
     "build": "babel src -d lib",
     "test": "jest",
+    "ci:version": "yarn changeset version",
+    "ci:publish": "yarn run build && yarn changeset publish",
     "test:watch": "npm run test -- --watch",
     "prepublish": "npm run clean && npm run build"
   },

@@ -190,7 +190,7 @@ var ObjectPropWithSpread = function ObjectPropWithSpread() {
 
 var _StyledP = (0, _styledComponents["default"])("p")(["flex: 1;"]);
 
-var _StyledP2 = (0, _styledComponents["default"])("p")(["flex: 1;\nmargin: 0px;\npadding: 0px;"]);
+var _StyledP2 = (0, _styledComponents["default"])("p")(["\n      flex: 1;\n       & {\n  margin: 0px;\n  padding: 0px;\n}    "]);
 
 var _StyledP3 = (0, _styledComponents["default"])("p")({
   color: 'blue'
@@ -198,7 +198,7 @@ var _StyledP3 = (0, _styledComponents["default"])("p")({
 
 var _StyledP4 = (0, _styledComponents["default"])("p")(["flex: 1;"]);
 
-var _StyledP5 = (0, _styledComponents["default"])("p")(["color: blue;\nheight: 100vh;\nmargin: 0px;\noverflow: hidden;\npadding: 0px;\nwidth: 100vw;"]);
+var _StyledP5 = (0, _styledComponents["default"])("p")(["\n      color: blue;\n       & {\n  height: 100vh;\n  margin: 0px;\n  overflow: hidden;\n  padding: 0px;\n  width: 100vw;\n}    "]);
 
 var _StyledParagraph = (0, _styledComponents["default"])(Paragraph)(["flex: 1"]);
 
