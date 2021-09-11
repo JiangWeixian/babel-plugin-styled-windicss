@@ -122,3 +122,13 @@ const StyleDay = styled.div`
 const Group = styled.div`
   @apply m-0 p-0 w-100vw h-100vh overflow-hidden hover:(bg-blue-500 text-xs);
 `
+
+const Nest = styled.div`
+  [data-role="aside-inner-content"] {
+    @apply flex flex-col justify-between h-full;
+
+    .todolist {
+      @apply flex flex-col items-center w-full;
+    }
+  }
+`

@@ -6,5 +6,5 @@ export const log = {
   template: {
     input: debug(`${NAME}:template:input`),
     output: debug(`${NAME}:template:output`),
-  }
+  },
 }

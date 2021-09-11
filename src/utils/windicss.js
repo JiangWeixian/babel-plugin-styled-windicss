@@ -8,15 +8,12 @@ export const getWindiCSSService = async (options) => {
   if (utils) {
     return utils
   }
-  utils = createUtils(
-    options,
-    {
-      name: 'babel-plugin-styled-windicss',
-      onConfigurationError(e) {
-        throw e
-      },
+  utils = createUtils(options, {
+    name: 'babel-plugin-styled-windicss',
+    onConfigurationError(e) {
+      throw e
     },
-  )
+  })
   await utils.init()
   return utils
 }

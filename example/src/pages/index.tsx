@@ -5,10 +5,7 @@ const Common = styled.div`
 `
 
 const UnFocusStyle = css`
-  color: ${(props) =>
-    props.theme === 'primary'
-      ? 'white'
-      : 'blue'};
+  color: ${(props) => (props.theme === 'primary' ? 'white' : 'blue')};
 `
 
 const FocusStyle = css`
@@ -19,7 +16,7 @@ const WithTemplateLiterals = styled.button`
   @apply cursor-pointer border-none text-center rounded appearance-none;
 
   ${UnFocusStyle};
-  
+
   padding: ${(props) => (props.size === 'lg' ? '4px 16px' : '2px 16px')};
 
   height: ${(props) => (props.size === 'lg' ? '28px' : '20px')};
@@ -34,9 +31,8 @@ const Nested = styled.div`
   @apply m-0 p-0 w-100vw h-100vh overflow-hidden hover:(bg-blue-500 text-xs);
 
   div {
-    font-family: '-apple-system', 'BlinkMacSystemFont', 'Segoe UI',
-    'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
-    'Helvetica Neue', 'sans-serif';
+    font-family: '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+      'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'sans-serif';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     &:hover {
@@ -103,8 +99,7 @@ const StyleDay = styled.div`
 
     aspect-ratio: 1 / 1;
     line-height: 28px;
-    color: ${(props) =>
-      props.selected ? 'var(--primary-text-color)' : 'var(--text-color-0)'};
+    color: ${(props) => (props.selected ? 'var(--primary-text-color)' : 'var(--text-color-0)')};
     background-color: ${(props) => (props.selected ? 'var(--primary)' : undefined)};
   }
   &.date-picker-day {
@@ -117,7 +112,6 @@ const StyleDay = styled.div`
   }
 `
 
-
 const Group = styled.div`
   @apply m-0 p-0 w-100vw h-100vh overflow-hidden hover:(bg-blue-500 text-xs);
 `
@@ -126,11 +120,9 @@ export default function IndexPage() {
   return (
     <div>
       <StyleDay>
-        <span>
-          1
-        </span>
+        <span>1</span>
       </StyleDay>
       <Group />
     </div>
-  );
+  )
 }

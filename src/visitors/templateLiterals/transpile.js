@@ -17,13 +17,10 @@ export default (t) => (path, state) => {
         .map((quasi) => {
           log.template.input(quasi.value.cooked)
           if (/@apply/g.test(quasi.value.cooked)) {
-            const next = quasi.value.cooked.replace(
-              APPLY_REGEX,
-              (_match, pre, applyCss) => {
-                const parsed = parse(`&{@apply ${applyCss}}`)
-                return `${pre} ${parsed}`
-              },
-            )
+            const next = quasi.value.cooked.replace(APPLY_REGEX, (_match, pre, applyCss) => {
+              const parsed = parse(`&{@apply ${applyCss}}`)
+              return `${pre} ${parsed}`
+            })
             log.template.output(next)
             return t.stringLiteral(next)
           }
