@@ -1,5 +1,11 @@
 # babel-plugin-styled-windicss
 
+## 1.0.1
+
+### Patch Changes
+
+- 6f886e9: fix translate nest css
+
 ## 1.0.0
 
 ### Major Changes
