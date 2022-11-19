@@ -23,6 +23,24 @@ Then add it to your babel configuration:
   "plugins": ["babel-plugin-styled-windicss"]
 }
 ```
+
+vite:
+
+```javascript
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+export default defineConfig({
+  plugins: [
+    react({
+      babel:{
+        plugins:["babel-plugin-styled-windicss"]
+      }
+    }),
+  ],
+});
+
+```
+
 ## usage
 
 > **💡 NOTE**  
